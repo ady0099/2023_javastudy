@@ -1,0 +1,79 @@
+연산자 
+몫(/)과 나머지(%)
+
+
+주민등록번호 뒷자리 1,2 3,4 7,8
+홀짝으로 계산 가능
+
+ui/ux
+숫자만 쓰게 만들고 0을 못쓰게 만들어야 사용자가 실수를 안함
+실수하지 않게끔
+ux
+경험적으로 아는 것
+햄버거 버튼이 메뉴라는 걸 알듯이
+
+
+
+
+----------------
+이클립스 설치
+
+Open Perspective - java 선택
+
+day01-03 추가하면 인코딩 문제
+'국' 에러 발견
+ANSI를 써서 안맞는것
+
+windows -> preferences -> General -> Colors and Fonts -> Text Font
+
+※ 이클립스 단축키 조사하기
+나중에 과제로 나감
+
+Workspace
+들어가보면 utf-8로 되어있음
+하지만 앞으로 utf-8로 사용할 것이므로 그대로 유지
+편의상 '국'으로 수정했더니 에러 표시가 없어졌다
+outline/console 최소화
+
+마우스 우클릭 Run As
+단축키 알트쉬프트xj
+
+src 소스가 모여있는 공간
+
+패키지명 3단계 - 중복방지
+com.ict.edu
+
+class 생성
+-> Ex01_oper(생성자) // 뭘 배웠는지 찾기 쉽게
+main method 체크
+
+ctrl+sp
+
+package / public class 등 자주색(다크모드 주황색) = 예약어
+
+범위 잡고 알트 방향키 & 컨트롤 알트 방향기
+
+a!=b
+a=!b
+차이를 알아둘 것
+띄어쓰기 가독성
+
+
+논리연산자 &&는 false를 만나는 순간 후 조건을 계산 안함
+||는 true를 만나는 순간 후 조건을 계산 안함
+이로 인해 오류가 발생할 수 있으니 잘 기억할 것
+
+Ex04_oper
+	result = ((su1 = su1 +2) < su2) && (su1 == (su2 = su2 +5) );
+	System.out.println("결과 : " + result);
+	System.out.println("su1 : " + su1);
+	System.out.println("su2 : " + su2);
+
+결과 : false
+su1 : 12
+su2 : 7
+
+su2는 계산되지 않음
+
+패키지 형태 . < 폴더로 나뉨
+class 파일이 없다 < 자체 컴파일
