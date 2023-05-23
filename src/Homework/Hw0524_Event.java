@@ -100,7 +100,7 @@ public class Hw0524_Event extends JFrame implements ActionListener {
 			System.exit(0);
 		} else if (obj == reset) {
 			// bg.clearSelection();
-			jrb1.setSelected(true);
+			jrb1.setSelected(true); // default => +연산자
 			jtf1.setText("");
 			jtf2.setText("");
 			jtf1.requestFocus();
@@ -118,53 +118,56 @@ public class Hw0524_Event extends JFrame implements ActionListener {
 		String a = jtf1.getText();
 		String b = jtf2.getText();
 		String op = "";
-		String[] jrb = new String[4];
-		
-		int par = 0;
-		double par2 = 0.0;
+		String xPar = "";
+		Object x = null; // 중복 코드를 줄이기 위한 오브젝트 변수 선언
+
+		double par = 0.0;
 
 		try {
 			if (a.length() == 0 || b.length() == 0) {
-				jta.setText("빈칸에 숫자를 입력해주세요.");
+				jta.setText("빈칸에 숫자를 입력해주세요.\n");
+			} else {
+				if (a.matches(regX) || b.matches(regX)) {
+					if (jrb1.isSelected()) {
+						op = jrb1.getText();
+						par = Double.parseDouble(a) + Double.parseDouble(b);
+					} else if (jrb2.isSelected()) {
+						op = jrb2.getText();
+						par = Double.parseDouble(a) - Double.parseDouble(b);
+					} else if (jrb3.isSelected()) {
+						op = jrb3.getText();
+						par = Double.parseDouble(a) * Double.parseDouble(b);
+					} else if (jrb4.isSelected()) {
+						op = jrb4.getText();
+						if (!(b.equals("0"))) {
+							par = Double.parseDouble(a) / Double.parseDouble(b);
+						} else {
+							jta.append("0으로 나눌 수 없습니다.\n");
+						}
+						// else if (!(jrb1.isSelected()) && !(jrb2.isSelected()) &&
+						// !(jrb3.isSelected()){
+						// && !(jrb4.isSelected()))
+						// jta.setText("연산자를 선택해주세요."); } / default가 초기화값일 경우 사용
+					}
+
+					if ((par == Math.abs(par)) || (par == Math.abs(par) * (-1))) {
+						if (jrb4.isSelected()) {
+							if (!(b.equals("0"))) {
+								x = a + " " + op + " " + b + "  =  " + par + "\n";
+							}
+						} else {
+							xPar = ("" + par).substring(0, ("" + par).length() - 2);
+							x = a + " " + op + " " + b + "  =  " + xPar + "\n";
+						}
+						jta.append((String) x);
+					}
+				}
 			}
-			if (a.matches(regX) || b.matches(regX)) {
-				jrb[0] = jrb1.getText();
-				if (jrb1.isSelected()) {
-					op = jrb1.getText();
-					par = Integer.parseInt(a) + Integer.parseInt(b);
-					jta.setText(a + " " + op + " " + b + "  =  \n" + par);
-
-					System.out.println("calc() 실행.. [" + op + "]연산.. 값 : " + par);
-
-				} else if (jrb2.isSelected()) {
-					op = jrb2.getText();
-					par = Integer.parseInt(a) - Integer.parseInt(b);
-					jta.setText(a + " " + op + " " + b + "  =  \n" + par);
-					System.out.println("calc() 실행.. [" + op + "]연산.. 값 : " + par);
-
-				} else if (jrb3.isSelected()) {
-					op = jrb3.getText();
-					par = Integer.parseInt(a) * Integer.parseInt(b);
-					jta.setText(a + " " + op + " " + b + "  =  \n" + par);
-					System.out.println("calc() 실행.. [" + op + "]연산.. 값 : " + par);
-				} else if (jrb4.isSelected()) {
-					op = jrb4.getText();
-					par2 = Double.parseDouble(a) / Double.parseDouble(b);
-					jta.setText(a + " " + op + " " + b + "  =  \n" + par2);
-					System.out.println("calc() 실행.. [" + op + "]연산.. 값 : " + par2);
-				} else if (!(jrb1.isSelected()) || !(jrb2.isSelected()) || !(jrb3.isSelected()) || !(jrb4.isSelected()))
-					jta.setText("연산자를 선택해주세요.");
-
-			}
-
-		} catch (ArithmeticException ex) {
-			jta.setText("0으로 나눌 수 없습니다.");
 		} catch (NumberFormatException ex) {
-			jta.setText("숫자를 제대로 입력해주세요.");
+			jta.append("숫자를 제대로 입력해주세요.\n");
 		} catch (Exception ex) {
-			System.out.println(ex);
+			jta.append("숫자만 입력해주세요.\n");
 		}
-
 	}
 
 	public static void main(String[] args) {
