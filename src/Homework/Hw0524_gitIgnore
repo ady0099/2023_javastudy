@@ -1,0 +1,13 @@
+작업 파일이 적으면 하나하나 commit해도 되겠지지만, 그렇지 않은 경우가 더 많기에 git add . 명령어를 더 많이 사용하게 된다.
+이때, 보안상 문제가 있는 파일, 내려받은 오픈 소스 외부코드, 불필요한 파일, 용량이 너무 큰 파일
+.gitignore
+
+https://www.toptal.com/developers/gitignore
+
+
+
+3. commit/push된 파일 제외 방법
+git rm .env --cached
+git add .
+git commit -m "remove .env file from git"
+git push

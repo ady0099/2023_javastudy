@@ -22,7 +22,7 @@ import javax.swing.text.StyledEditorKit.FontSizeAction;
 // jta
 // 계산 종료 초기화
 
-public class Hw0524_Event extends JFrame implements ActionListener {
+public class Hw0524_Calc extends JFrame implements ActionListener {
 	JPanel jp1, jp2;
 	JTextField jtf1, jtf2;
 	JRadioButton jrb1, jrb2, jrb3, jrb4;
@@ -31,7 +31,7 @@ public class Hw0524_Event extends JFrame implements ActionListener {
 	JScrollPane jsp;
 	JButton calc, exit, reset;
 
-	public Hw0524_Event() {
+	public Hw0524_Calc() {
 		super("계산기");
 
 		jp1 = new JPanel();
@@ -171,7 +171,7 @@ public class Hw0524_Event extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new Hw0524_Event();
+		new Hw0524_Calc();
 	}
 
 }

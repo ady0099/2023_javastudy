@@ -1,4 +1,4 @@
-package day20.com.ict.edu3;
+package Homework;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,16 +15,15 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-// 대한민국, 캐나다, 영국, 스위스의 수도가 각각 HashMap에 저장시키고
-// 원하는 나라가 key값이 되어, 화면에서 나라를 물어보면 수도가 
-// 출력되는 프로그램 작성
-public class Ex02_Main extends JFrame{
+import day20.com.ict.edu3.Ex02_Main;
+
+public class Hw0525_CardCap extends JFrame {
 	JPanel jp;
 	JTextField jtf;
 	JButton jb1, jb2;
 	JTextArea jta;
 	JScrollPane jsp;
-	public Ex02_Main() {
+	public Hw0525_CardCap() {
 		super("수도 알아내기");
 		
 		jp = new JPanel();
@@ -101,13 +100,9 @@ public class Ex02_Main extends JFrame{
 		}
 	}
 	public static void main(String[] args) {
-		new Ex02_Main();
+		new Hw0525_CardCap();
 	}
 }
-
-
-
-
 
 
 

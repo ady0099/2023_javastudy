@@ -21,42 +21,38 @@ import javax.swing.ScrollPaneConstants;
 //jta 이름 총점 평균 학점
 //계산 / 종료 / 초기화
 
-public class HW0524_Event2 extends JFrame implements ActionListener {
+public class Hw0524_Score extends JFrame implements ActionListener {
 	JPanel jp1, jp2, jp3, jp4;
-	JTextField name, kor, eng, math;
+	JTextField nameF, kor, eng, math;
 	JTextArea jta;
 	JScrollPane jsp;
 	JButton calc, exit, reset;
-	String str="";
-	
-	String name2="";
-	double korNum=0.0, engNum=0.0, mathNum=0.0;
-	double sum=0.0;
-	double avg=0.0;
-	
-	public HW0524_Event2() {
+	String hak = "";
+
+	double korNum = 0.0, engNum = 0.0, mathNum = 0.0;
+	double sum = 0.0;
+	double avg = 0.0;
+
+	public Hw0524_Score() {
 		super("성적");
-		
+
 		jp1 = new JPanel();
-		name = new JTextField(5);
-		
+		nameF = new JTextField(5);
 
 		jp1.add(new JLabel("이름 : "));
-		jp1.add(name);
-		
+		jp1.add(nameF);
+
 		jp2 = new JPanel();
 		kor = new JTextField(5);
 		eng = new JTextField(5);
 		math = new JTextField(5);
-		
+
 		jp2.add(new JLabel("국어 : "));
 		jp2.add(kor);
 		jp2.add(new JLabel("영어 : "));
 		jp2.add(eng);
 		jp2.add(new JLabel("수학 : "));
 		jp2.add(math);
-
-
 
 		jta = new JTextArea(20, 40);
 		jsp = new JScrollPane(jta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -74,18 +70,16 @@ public class HW0524_Event2 extends JFrame implements ActionListener {
 		jp3.add(exit);
 		jp3.add(reset);
 
-		
 		JPanel jp4 = new JPanel();
 		jp4.setLayout(new BorderLayout());
-		
+
 		jp4.add(jp2, BorderLayout.NORTH);
 		jp4.add(jsp, BorderLayout.CENTER);
 		jp4.add(jp3, BorderLayout.SOUTH);
 
 		add(jp1, BorderLayout.NORTH);
 		add(jp4, BorderLayout.CENTER);
-		
-		
+
 		pack();
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -95,85 +89,96 @@ public class HW0524_Event2 extends JFrame implements ActionListener {
 		exit.addActionListener(this);
 		reset.addActionListener(this);
 
-		
 	}
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton obj = (JButton) e.getSource();
-		
 
-		
 		if (obj == exit) {
 			System.out.println("프로그램 종료");
 			System.exit(0);
 		} else if (obj == reset) {
-			name.setText("");
+			nameF.setText("");
 			kor.setText("");
 			eng.setText("");
 			math.setText("");
-			name.requestFocus(); // 초기화 시 이름에 focus
+			nameF.requestFocus(); // 초기화 시 이름에 focus
 			jta.setText("");
 			System.out.println("값 초기화");
 		} else if (obj == calc) {
 			calc();
-	
+			System.out.println("성적 계산");
 		}
 
-		
-		
 	}
 	void calc() {
-			name();
+
 		try {
-			korNum = Double.parseDouble(kor.getText());
-			engNum = Double.parseDouble(eng.getText());
-			mathNum = Double.parseDouble(math.getText());
-		}catch (Exception e) {
-			jta.append("숫자를 입력해주세요.");
-		}
-			jta.append("이름 : " + str+"\n");
-			sum();
-			
-			jta.append("총점 : " + str+"\n");
-			avg();
-			
-			jta.append("평균 : " + str+"\n");
-			hak();
-			jta.append("학점 : " + str+"\n");
+			int nameL = nameF.getText().length();
+			int korL = kor.getText().length();
+			int engL = eng.getText().length();
+			int mathL = math.getText().length();
+
+			if (nameL == 0) {
+				jta.append("이름을 입력해주세요.\n\n");
+				nameF.requestFocus();
+			} else if (korL == 0) {
+				jta.append("국어 점수를 입력해주세요.\n\n");
+				kor.requestFocus();
+			} else if (engL == 0) {
+				jta.append("영어 점수를 입력해주세요.\n\n");
+				eng.requestFocus();
+			} else if (mathL == 0) {
+				jta.append("수학 점수를 입력해주세요.\n\n");
+				math.requestFocus();
+			} else {
+
+				korNum = Double.parseDouble(kor.getText());
+				engNum = Double.parseDouble(eng.getText());
+				mathNum = Double.parseDouble(math.getText());
+
+				jta.append(name());
+				jta.append(sum(korNum, engNum, mathNum));
+				jta.append(avg(sum));
+				jta.append(hak(avg));
+				nameF.requestFocus();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			jta.append("빈칸을 제대로 입력해주세요.\n\n");
 		}
 
-	void name() {
-		jta.append("이름 : "+name.getText());
 	}
-	void sum() {
+
+	public String name() {
+		return "이름 : " + nameF.getText() + "\n";
+	}
+
+	public String sum(double korNum, double engNum, double mathNum) {
 		sum = korNum + engNum + mathNum;
+		return "총점 : " + sum + "\n";
 	}
-	void avg() {
-		avg = sum / 3;
-		name.getText();
-		// (int) (sum);
-		// (int) (avg * 10) / 10.0;
+
+	public String avg(double sum) {
+		avg = (int) (sum * 100 / 3) / 100;
+		return "평균 : " + avg + "\n";
 	}
-	void hak() {
+
+	public String hak(double avg) {
 		if (avg >= 90) {
-			str = "A학점";
+			hak = "A학점";
 		} else if (avg >= 80) {
-			str = "B학점";
+			hak = "B학점";
 		} else if (avg >= 70) {
-			str = "C학점";
+			hak = "C학점";
 		} else {
-			str = "F학점";
+			hak = "F학점";
 		}
+		return "학점 : " + hak + "\n\n";
 	}
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return super.getName();
-	}
-	
+
 	public static void main(String[] args) {
-		new HW0524_Event2();
+		new Hw0524_Score();
 	}
 }
