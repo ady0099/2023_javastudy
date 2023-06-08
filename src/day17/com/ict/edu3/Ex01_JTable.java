@@ -16,6 +16,8 @@ public class Ex01_JTable extends AbstractTableModel{
 			{"4","dddd","d111","73","false"}
 		};
 	
+
+	
 	// 행의 수 = rows = 줄
 	@Override
 	public int getRowCount() {

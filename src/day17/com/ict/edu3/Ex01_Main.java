@@ -29,7 +29,9 @@ public class Ex01_Main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
-
+	
+	
+	
 	public static void main(String[] args) {
 		new Ex01_Main();
 

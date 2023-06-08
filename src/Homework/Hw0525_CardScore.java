@@ -16,21 +16,22 @@ import javax.swing.ScrollPaneConstants;
 import day21.com.ict.edu.Ex03_Join;
 import day21.com.ict.edu.Ex03_Main;
 
-public class Hw0525_CardScore extends JFrame implements ActionListener{
+public class Hw0525_CardScore extends JPanel implements ActionListener{
 	JPanel jp1, jp2, jp3, jp4;
 	JTextField nameF, kor, eng, math;
 	JTextArea jta;
 	JScrollPane jsp;
-	JButton calc, exit, reset;
+	JButton calc, exit, reset, back;
 	String hak = "";
-
+	Hw0525_CardMain main;
+	
 	double korNum = 0.0, engNum = 0.0, mathNum = 0.0;
 	double sum = 0.0;
 	double avg = 0.0;
 
-	public Hw0525_CardScore() {
-		super("성적");
-
+	public Hw0525_CardScore(Hw0525_CardMain main) {
+		this.main = main;
+		
 		jp1 = new JPanel();
 		nameF = new JTextField(5);
 
@@ -49,7 +50,7 @@ public class Hw0525_CardScore extends JFrame implements ActionListener{
 		jp2.add(new JLabel("수학 : "));
 		jp2.add(math);
 
-		jta = new JTextArea(20, 40);
+		jta = new JTextArea(22, 40);
 		jsp = new JScrollPane(jta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jta.setLineWrap(true);
@@ -60,10 +61,12 @@ public class Hw0525_CardScore extends JFrame implements ActionListener{
 		calc = new JButton("계산");
 		exit = new JButton("종료");
 		reset = new JButton("초기화");
+		back = new JButton("뒤로 가기");
 
 		jp3.add(calc);
 		jp3.add(exit);
 		jp3.add(reset);
+		jp3.add(back);
 
 		JPanel jp4 = new JPanel();
 		jp4.setLayout(new BorderLayout());
@@ -75,15 +78,18 @@ public class Hw0525_CardScore extends JFrame implements ActionListener{
 		add(jp1, BorderLayout.NORTH);
 		add(jp4, BorderLayout.CENTER);
 
-		pack();
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 
 		calc.addActionListener(this);
 		exit.addActionListener(this);
 		reset.addActionListener(this);
+		
+		back.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				main.cardLayout.show(main.pg, "menu");
+			}
+		});
 	}
 
 	@Override
@@ -171,9 +177,5 @@ public class Hw0525_CardScore extends JFrame implements ActionListener{
 			hak = "F학점";
 		}
 		return "학점 : " + hak + "\n\n";
-	}
-
-	public static void main(String[] args) {
-		new Hw0525_CardScore();
 	}
 }

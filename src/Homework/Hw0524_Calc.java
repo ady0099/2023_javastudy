@@ -120,7 +120,7 @@ public class Hw0524_Calc extends JFrame implements ActionListener {
 		String op = "";
 		String xPar = "";
 		Object x = null; // 중복 코드를 줄이기 위한 오브젝트 변수 선언
-
+		
 		double par = 0.0;
 
 		try {
@@ -158,8 +158,11 @@ public class Hw0524_Calc extends JFrame implements ActionListener {
 						} else {
 							xPar = ("" + par).substring(0, ("" + par).length() - 2);
 							x = a + " " + op + " " + b + "  =  " + xPar + "\n";
+							//xPar = String.format("%, .0f", par);	
 						}
 						jta.append((String) x);
+//						xPar = a + " " + op + " " + b + " = " + String.format("%, .0f", par);
+//						jta.append(xPar);
 					}
 				}
 			}

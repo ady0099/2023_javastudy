@@ -15,42 +15,57 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import day20.com.ict.edu3.Ex02_Main;
-
-public class Hw0525_CardCap extends JFrame {
-	JPanel jp;
+public class Hw0525_CardCap extends JPanel {
+	JPanel jp, jp2, jp15;
 	JTextField jtf;
-	JButton jb1, jb2;
+	JButton jb1, jb2, back;
 	JTextArea jta;
 	JScrollPane jsp;
-	public Hw0525_CardCap() {
-		super("수도 알아내기");
+	Hw0525_CardMain main;
+	public Hw0525_CardCap(Hw0525_CardMain main) {
+		this.main = main;
 		
 		jp = new JPanel();
 		jtf = new JTextField(15);
 		jb1 = new JButton("확인");
 		jb2 = new JButton("취소");
 		
+		
 		jp.add(new JLabel("나라입력 : "));
 		jp.add(jtf);
 		jp.add(jb1);
 		jp.add(jb2);
 		
-		jta = new JTextArea(10,30);
+		
+		jp15 = new JPanel();
+		
+		
+		
+		jta = new JTextArea(22,40);
 		jsp = new JScrollPane(jta,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jta.setLineWrap(true);
 		jta.setEditable(false);
 		
+		jp15.add(jsp);
+		
+		jp2 = new JPanel();
+		back = new JButton("뒤로 가기");
+		jp2.add(back);
+				
 		add(jp, BorderLayout.NORTH);
-		add(jsp, BorderLayout.CENTER);
+		add(jp15, BorderLayout.CENTER);
+		add(jp2, BorderLayout.SOUTH);
 		
-		pack();
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-		
+		back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				main.cardLayout.show(main.pg, "menu");
+			}
+		});
+
+	
 		jtf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -72,6 +87,8 @@ public class Hw0525_CardCap extends JFrame {
 				jtf.requestFocus();
 			}
 		});
+		
+
 	}
 	
 	// 위 중복된 코드가 있으므로 메서드를 만들자 
@@ -98,9 +115,6 @@ public class Hw0525_CardCap extends JFrame {
 			jtf.setText("");
 			jtf.requestFocus();
 		}
-	}
-	public static void main(String[] args) {
-		new Hw0525_CardCap();
 	}
 }
 

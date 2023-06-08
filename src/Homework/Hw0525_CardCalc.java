@@ -20,24 +20,22 @@ import javax.swing.ScrollPaneConstants;
 //카드레이아웃을 이용해서 호출하고 
 //이벤트 처리 하자
 
-public class Hw0525_CardCalc extends JFrame implements ActionListener {
+public class Hw0525_CardCalc extends JPanel implements ActionListener {
 	Hw0525_CardMain main;
-	JPanel jp1, jp2;
+	JPanel jp1, jp2, jp15;
 	JTextField jtf1, jtf2;
 	JRadioButton jrb1, jrb2, jrb3, jrb4;
 	ButtonGroup bg;
 	JTextArea jta;
 	JScrollPane jsp;
-	JButton calc, exit, reset, back;
+	JButton cal, exit, reset, back;
 
 	public Hw0525_CardCalc(Hw0525_CardMain main) {
-		super("계산기");
 		this.main = main;
-		
+
 		jp1 = new JPanel();
 		jtf1 = new JTextField(5);
 		jtf2 = new JTextField(5);
-		
 
 		jp1.add(new JLabel("수1 "));
 		jp1.add(jtf1);
@@ -60,45 +58,44 @@ public class Hw0525_CardCalc extends JFrame implements ActionListener {
 		bg.add(jrb2);
 		bg.add(jrb3);
 		bg.add(jrb4);
-
-		jta = new JTextArea(10, 10);
+		
+		jp15 = new JPanel();
+		
+		jta = new JTextArea(22, 40);
 		jsp = new JScrollPane(jta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jta.setLineWrap(true);
 		jta.setEditable(false);
 
+		jp15.add(jsp);
+		
 		jp2 = new JPanel();
 
-		calc = new JButton("계산");
+		cal = new JButton("계산");
 		exit = new JButton("종료");
 		reset = new JButton("초기화");
 		back = new JButton("뒤로가기");
-		
-		jp2.add(calc);
+
+		jp2.add(cal);
 		jp2.add(exit);
 		jp2.add(reset);
 		jp2.add(back);
-		
+
 		add(jp1, BorderLayout.NORTH);
-		add(jsp, BorderLayout.CENTER);
-		add(jp2, BorderLayout.SOUTH);
+		add(jp15, BorderLayout.CENTER);
+		add(jp2);
 
-		pack();
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-
-		calc.addActionListener(this);
+		cal.addActionListener(this);
 		exit.addActionListener(this);
 		reset.addActionListener(this);
-	
+		back.addActionListener(this);
+
+		
 		back.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				main.setVisible(true);
-
+				main.cardLayout.show(main.pg, "menu");
 			}
 		});
 
@@ -119,7 +116,7 @@ public class Hw0525_CardCalc extends JFrame implements ActionListener {
 			jtf1.requestFocus();
 			jta.setText("");
 			System.out.println("값 초기화");
-		} else if (obj == calc) {
+		} else if (obj == cal) {
 			calc();
 		}
 
@@ -171,8 +168,11 @@ public class Hw0525_CardCalc extends JFrame implements ActionListener {
 						} else {
 							xPar = ("" + par).substring(0, ("" + par).length() - 2);
 							x = a + " " + op + " " + b + "  =  " + xPar + "\n";
+						// 	정수인 경우 소수점 출력을 막기 위해 이런 형변환을 사용하였으나, 아래처럼 사용하면 더 편하게 사용할 수 있다.
+						//	xPar = a + " " + op + " " + b + " = " + String.format("%, .0f", par);
 						}
 						jta.append((String) x);
+						
 					}
 				}
 			}
