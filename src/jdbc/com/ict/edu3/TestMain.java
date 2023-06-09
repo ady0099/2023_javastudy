@@ -1,9 +1,6 @@
 package jdbc.com.ict.edu3;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import jdbc.com.ict.edu4.VO;
 
 public class TestMain {
 	public static void main(String[] args) {

@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 import javax.swing.JFrame;
@@ -34,7 +36,9 @@ public class Hw0607_Menu extends JFrame {
 	JMenu m_file, m_form, font_form, m_help;
 	JMenuItem i_newFile, i_openFile, i_saveFile, i_exitFile, i_item1, i_item2, i_item3, i_help, i_info;
 	FileDialog openDialog, saveDialog;
-	
+	String deff;
+	String openpath;
+
 	public Hw0607_Menu() {
 		super("간단메모장");
 		jta = new JTextArea();
@@ -46,11 +50,11 @@ public class Hw0607_Menu extends JFrame {
 		jmb = new JMenuBar();
 		m_file = new JMenu(" 파  일 ");
 		m_form = new JMenu(" 서  식 ");
-		font_form = new JMenu(" 글자서식");
+		font_form = new JMenu(" 글자서식 ");
 		m_help = new JMenu(" 도 움 말 ");
 
 		i_newFile = new JMenuItem(" 새파일 ");
-		i_openFile = new JMenuItem(" 열 기 ... "); // ... 은 창이 열리는다는 뜻. dialog가 나와야함
+		i_openFile = new JMenuItem(" 열 기 ... ");
 		i_saveFile = new JMenuItem(" 저 장 ... ");
 		i_exitFile = new JMenuItem(" 종 료 ");
 		i_item1 = new JMenuItem(" 돋 움, 기울기, 30 ");
@@ -59,7 +63,6 @@ public class Hw0607_Menu extends JFrame {
 		i_help = new JMenuItem(" 도 움 말 ");
 		i_info = new JMenuItem(" 메모장 정보 ");
 
-		// 메뉴아이템을 메뉴에 붙이자
 		m_file.add(i_newFile);
 		m_file.add(i_openFile);
 		m_file.addSeparator();
@@ -75,12 +78,10 @@ public class Hw0607_Menu extends JFrame {
 		m_help.add(i_help);
 		m_help.add(i_info);
 
-		// 메뉴를 메뉴바에 붙인다.
 		jmb.add(m_file);
 		jmb.add(m_form);
 		jmb.add(m_help);
 
-		// 메뉴바를 프레임 붙인다.
 		setJMenuBar(jmb);
 		add(jsp);
 
@@ -110,50 +111,78 @@ public class Hw0607_Menu extends JFrame {
 				}
 			}
 		});
-		// 불러오기
 		i_openFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// 파일 열기 다이얼로그
 				FileDialog fd = new FileDialog((JFrame) getParent(), "파일열기", FileDialog.LOAD);
 				fd.setVisible(true);
-				String msg = fd.getDirectory() + fd.getFile();
+				openpath = fd.getDirectory() + fd.getFile();
 
-				if (!msg.equals("nullnull")) {
-					jta.setText(msg);
-					System.out.println(msg + " 열기");
+				if (!openpath.equals("nullnull")) {
+					jta.setText("");
+					File file = new File(openpath);
+					FileReader fr = null;
+					BufferedReader br = null;
+					try {
+						fr = new FileReader(file);
+						br = new BufferedReader(fr);
+						String str = null;
 
+						while ((str = br.readLine()) != null) {
+							jta.append(str + "\n");
+						}
+						deff = jta.getText();
+						System.out.println(openpath + " 열기");
+					} catch (Exception e2) {
+						System.out.println(e2);
+					} finally {
+						try {
+							br.close();
+							fr.close();
+						} catch (Exception e3) {
+							System.out.println(e3);
+						}
+					}
 				} else {
 					System.out.println("열기 취소");
 				}
-				open();
-				// 실제 불러오는 코딩( I/O )
 			}
 		});
-		// 저장
 		i_saveFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// 파일 저장 다이얼로그
 				FileDialog fd = new FileDialog((JFrame) getParent(), "저장하기", FileDialog.SAVE);
 				fd.setVisible(true);
 				String msg = fd.getDirectory() + fd.getFile();
 
 				if (!msg.equals("nullnull")) {
-					jta.setText(msg);
-					System.out.println(msg + " 저장");
+					File file = new File(msg);
+					FileWriter fr = null;
+					BufferedWriter br = null;
+					try {
+						fr = new FileWriter(file);
+						br = new BufferedWriter(fr);
+						String str = jta.getText();
+						br.write(str);
+						br.flush();
+						System.out.println(msg + " 저장");
+					} catch (Exception e2) {
+					} finally {
+						try {
+							br.close();
+							fr.close();
+						} catch (Exception e3) {
+						}
+					}
 				} else {
 					System.out.println("저장 취소");
 				}
-				save();
 			}
 		});
 		i_exitFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
-				// 원래는 내용이 변경되면 저장할지를 물어보고
-				// 내용이 변경되지 않으면 그냥 종료.
 			}
 		});
 		i_item1.addActionListener(new ActionListener() {
@@ -194,79 +223,6 @@ public class Hw0607_Menu extends JFrame {
 				JOptionPane.showMessageDialog(getParent(), " 간단 메모장 정보 ");
 			}
 		});
-	}
-
-	private void open() {
-		String pathname = jta.getText().trim();
-		if (pathname.length() > 0) {
-			File file = new File(pathname);
-			FileInputStream fis = null;
-			BufferedInputStream bis = null;
-			try {
-				fis = new FileInputStream(file);
-				bis = new BufferedInputStream(fis);
-
-				byte[] b = new byte[(int) file.length()];
-				bis.read(b);
-				String msg = new String(b).trim();
-				jta.setText(msg);
-			} catch (Exception e) {
-
-			} finally {
-				try {
-					bis.close();
-					fis.close();
-				} catch (Exception e2) {
-
-				}
-			}
-		}
-	}
-
-	private void save() {
-		String pathname = jta.getText().trim();
-
-		FileDialog fd = new FileDialog((JFrame) getParent(), "저장하기", FileDialog.SAVE);
-		fd.setVisible(true);
-		String msg = fd.getDirectory() + fd.getFile();
-		
-		
-		
-		saveDialog = new FileDialog(this, "저장", FileDialog.SAVE);
-		String filePath = openDialog.getDirectory() + openDialog.getFile();
-		
-		File file = new File(msg);
-
-		FileInputStream fis = null;
-		BufferedInputStream bis = null;
-		FileOutputStream fos = null;
-		BufferedOutputStream bos = null;
-		FileWriter fw = null;
-
-		try {
-
-			fis = new FileInputStream(file);
-			bis = new BufferedInputStream(fis);
-			fos = new FileOutputStream(file);
-			bos = new BufferedOutputStream(fos);
-
-			int b = 0;
-			while ((b = bis.read()) != -1) {
-				bos.write(b);
-			}
-			bos.flush();
-			jta.setText("");
-		} catch (Exception e) {
-
-		} finally {
-			try {
-				bos.close();
-				fos.close();
-			} catch (Exception e2) {
-
-			}
-		}
-
 	}
 
 	public static void main(String[] args) {

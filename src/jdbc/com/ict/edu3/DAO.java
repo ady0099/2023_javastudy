@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 // 싱글턴 패턴 : 소프트웨어 디자인 패턴에서 사용하는 패턴 중 하나이다.
 //             생성자가 여러차례 호출 되더라도 실제 생성되는 객체는 하나이고,
 //             최초 생성 이후에는 호출된 생성자는 최초 생성자가 생성한 객체를 리턴한다.
-//             가장 대표적인 것이 spring 이 기존적으로 싱글턴 패턴을 사용한다.
+//             가장 대표적인 것으로 spring 이 기존적으로 싱글턴 패턴을 사용한다.
 
 public class DAO {
 	Connection conn = null;
@@ -31,7 +31,7 @@ public class DAO {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String url ="jdbc:oracle:thin:@localhost:1521:xe";
-			String user = "c##nohssam";
+			String user = "c##ady";
 			String password = "1111";
 			conn = DriverManager.getConnection(url, user, password);
 			return conn;
