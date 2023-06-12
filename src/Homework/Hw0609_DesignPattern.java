@@ -66,37 +66,37 @@ public class Hw0609_DesignPattern {
 	책임 연쇄(Chain of Respnsibility), 커맨드(Command), 인터프리터(Interpreter), 이터레이터(Iterator), 미디에이터(Mediator), 메멘토(Memento), 
 	옵서버(Observer), 스테이트(State), 스트래티지(Strategy), 템플릿 메서드(Template Method), 비지터(Visitor)
 	
-	책임 연쇄(Chain of Respnsibility)
+	(1) 책임 연쇄(Chain of Respnsibility)
 	- 요청을 처리할 수 있는 기회를 하나 이상의 객체에게 부여하여 요청을 보내는 객체와 그 요청을 받는 객체 사이의 결합을 피하는 패턴
 	
-	커맨드(Command)
+	(2) 커맨드(Command)
 	- 실행할 기능을 캡슐화 함으로써 여러 기능이 재사용될 수 있도록 클래스를 설계하는 패턴
 	
-	인터프리터(Interpreter)
+	(3) 인터프리터(Interpreter)
 	- 언어에 문법 표현을 정의하는 패턴
 	 
-	이터레이터(Iterator)
+	(4) 이터레이터(Iterator)
 	- 자료 구조와 같이 접근이 잦은 객체에 대해 동일한 인터페이스를 사용하도록 하는 패턴
 	 
-	미디에이터(Mediator)
+	(5) 미디에이터(Mediator)
 	- 수많은 객체들 간의 복잡한 상호작용을 캡슐화하여 객체로 정의하는 패턴
 	
-	메멘토(Memento)
+	(6) 메멘토(Memento)
 	- 특정 시점에서의 객체 내부 상태를 객체화함으로써 이후 요청에 따라 객체를 해당 시점으로 돌릴 수 있는 패턴
 	 
-	옵서버(Observer)
+	(7) 옵서버(Observer)
 	- 한 객체의 상태 변화에 따라 다른 객체의 상태도 연동되도록 일대다 객체 의존 관계를 구성하는 패턴
 	
-	스테이트(State) 
+	(8) 스테이트(State) 
 	- 객체의 상태에 따라 객체의 행위 내용을 변경해주는 패턴
 	
-	스트래티지(Strategy)
+	(9) 스트래티지(Strategy)
 	- 동일 계열의 알고리즘군을 정의하고, 각각의 알고리즘을 캡슐화하며, 이들을 상호교환이 가능하도록 만드는 패턴
 	
-	템플릿 메서드(Template Method)
+	(10) 템플릿 메서드(Template Method)
 	- 상위 클래스에서 골격을 정의하고, 하위 클래스에서 세부 처리를 구체화하는 구조의 패턴
 	
-	비지터(Visitor)
+	(11) 비지터(Visitor)
 	- 각 클래스들의 데이터 구조에서 처리 기능을 분리하여 별도의 클래스도 구성하는 패턴	
 		
 	
