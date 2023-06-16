@@ -110,7 +110,7 @@ public class DB_Client extends JFrame implements Runnable {
 				}
 			}
 		});
-		
+
 		jb1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -121,9 +121,22 @@ public class DB_Client extends JFrame implements Runnable {
 					out.flush();
 				} catch (Exception e2) {
 				}
-				
+
 			}
 		});
+		jb2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Protocol p = new Protocol();
+					p.setCmd(2);
+				} catch (Exception e2) {
+
+				}
+			}
+		});
+
 	}
 
 	// 접속
@@ -150,35 +163,45 @@ public class DB_Client extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-		esc:while(true) {
+		esc: while (true) {
 			try {
 				Object obj = in.readObject();
-				if(obj != null) {
-					Protocol p = (Protocol)obj;
+				if (obj != null) {
+					Protocol p = (Protocol) obj;
 					switch (p.getCmd()) {
-						case 0 : break esc;
-						case 1: 
-							List<VO> list = p.getList();
-							prn(list);
-							break;
+					case 0:
+						break esc;
+					case 1:
+						List<VO> list = p.getList();
+						prn(list);
+						break;
+					case 2:
+						list = p.getList();
+						prn(list);
+						break;
 					}
 				}
 			} catch (Exception e) {
 			}
 		}
-		 closed();
+		closed();
 	}
+	public void add(List<VO> list) {
+		
+	}
+	
 	public void prn(List<VO> list) {
-		 jta.setText("");
-		 jta.append("\n\t\t\t 회원 전체 정보 \n\n");
-		 jta.append("\t번호\t이름\t주소\t\t전화번호\n");
+		jta.setText("");
+		jta.append("\n\t\t\t 회원 전체 정보 \n\n");
+		jta.append("\t번호\t이름\t주소\t\t전화번호\n");
 		for (VO k : list) {
-			jta.append("\t"+k.getCustid()+"\t");
-			jta.append(k.getName()+"\t");
-			jta.append(k.getAddress()+"\t\t");
-			jta.append(k.getPhone()+"\n");
+			jta.append("\t" + k.getCustid() + "\t");
+			jta.append(k.getName() + "\t");
+			jta.append(k.getAddress() + "\t\t");
+			jta.append(k.getPhone() + "\n");
 		}
 	}
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override

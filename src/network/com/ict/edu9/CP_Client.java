@@ -43,6 +43,9 @@ public class CP_Client extends Thread {
 						out.writeObject(p);
 						out.flush();
 						break;
+					case 2:
+						
+						break;
 					}
 				}
 			} catch (Exception e) {
