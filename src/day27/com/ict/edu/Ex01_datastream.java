@@ -26,7 +26,7 @@ public class Ex01_datastream {
 			fis = new FileInputStream(file);
 			dis = new DataInputStream(fis);
 			
-			// writeXXXX() => XXX는 기본자료형을 말한다.
+			// writeXXX() => XXX는 기본자료형을 말한다.
 			dos.writeChar(97);
 			dos.writeChar('A');
 			dos.writeInt(245);
