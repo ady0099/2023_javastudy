@@ -1,4 +1,4 @@
-package network.com.ict.edu6;
+package network.com.ict.edu7;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
@@ -10,29 +10,31 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ChatClient2 extends JFrame implements Runnable {
+public class ChatClient2_card extends JFrame implements Runnable {
 	JPanel pg1;
 	CardLayout cardLayout;
 	Card_One one;
 	Card_Two two;
-	// 접속
+	Card_Three three;
+
 	Socket s = null;
 	ObjectOutputStream out = null;
 	ObjectInputStream in = null;
 
-	public ChatClient2() {
-		super("멀티채팅 ");
+	public ChatClient2_card() {
+		super("멀티채팅 ver. 2.0");
 		cardLayout = new CardLayout();
 		pg1 = new JPanel();
 		pg1.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pg1.setLayout(cardLayout);
 
-		// 카드 생성
 		one = new Card_One(this);
 		two = new Card_Two(this);
+		three = new Card_Three(this);
 
 		pg1.add("one", one);
 		pg1.add("two", two);
+		pg1.add("three", three);
 
 		cardLayout.show(pg1, "one");
 
@@ -42,11 +44,11 @@ public class ChatClient2 extends JFrame implements Runnable {
 		setResizable(false);
 		setVisible(true);
 	}
-
+	
 	public boolean connected() {
 		boolean value = true;
 		try {
-			s = new Socket("192.168.0.18", 7778);
+			s = new Socket("192.168.0.18", 7779);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
 			new Thread(this).start();
@@ -56,7 +58,7 @@ public class ChatClient2 extends JFrame implements Runnable {
 		return false;
 	}
 
-	public void closed() {
+	private void closed() {
 		try {
 			out.close();
 			in.close();
@@ -78,8 +80,8 @@ public class ChatClient2 extends JFrame implements Runnable {
 						break esc;
 
 					case 2: // 메세지
-						two.jta.append(p.getMsg() + "\n");
-						two.jta.setCaretPosition(two.jta.getText().length());
+						three.jta.append(p.getMsg() + "\n");
+						three.jta.setCaretPosition(three.jta.getText().length());
 						break;
 					}
 
@@ -88,15 +90,16 @@ public class ChatClient2 extends JFrame implements Runnable {
 			}
 		}
 		closed();
-
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new ChatClient2();
+				new ChatClient2_card();
 			}
 		});
 	}
+
 }

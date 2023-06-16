@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ChatRoom {
 	// 방 참여자들이 저장되어 있는 곳 - 방 나가기 또는 접속 해제 시 여기서 삭제되어야 한다.
-	//                         마지막 사람이 나가면 방은 삭제 하자.
+	//                         마지막 사람이 나가면 방는 삭제 하자.
 	ArrayList<CopyClient> j_list;
 	String title ;  // 방 제목
 	
@@ -41,7 +41,6 @@ public class ChatRoom {
 		 for (CopyClient k : j_list) {
 			arr[i++] = k.nickName;
 		}
-		 
 		 return arr;
 	 }
 	

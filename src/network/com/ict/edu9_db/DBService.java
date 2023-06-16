@@ -1,4 +1,4 @@
-package mybatis.com.ict.edu;
+package network.com.ict.edu9_db;
 
 import java.io.InputStream;
 
@@ -27,3 +27,10 @@ public class DBService {
 		return factory;
 	}
 }
+
+
+
+
+
+
+
