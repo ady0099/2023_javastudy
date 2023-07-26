@@ -11,7 +11,7 @@ public class EchoClient {
 		InputStream in = null;
 
 		try {
-			s = new Socket("192.168.0.18", 7777);
+			s = new Socket("192.168.0.22", 7777);
 			System.out.println("클라이언트 연결 성공");
 
 			// 입출력 스트림

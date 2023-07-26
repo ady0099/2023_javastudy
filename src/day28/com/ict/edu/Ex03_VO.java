@@ -8,7 +8,7 @@ import java.io.Serializable;
 // 객체 직렬화 하기
 // 1. Serializable 인터페이스를 구현하는 방법(추상메서드가 없다.)
 //    멤버변수 모두가 객체 직렬화 대상이 된다.
-//직렬화 대상에서 제외하고 싶은 멤버는 멤버 앞에 transtient 예약어 사용
+//직렬화 대상에서 제외하고 싶은 멤버는 멤버 앞에 transient 예약어 사용
 
 public class Ex03_VO implements Serializable {
 	private String name;

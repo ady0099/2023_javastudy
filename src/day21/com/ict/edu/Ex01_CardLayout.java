@@ -13,12 +13,12 @@ import javax.swing.JPanel;
 
 // 카드레이아웃 : 카드가 뒤집혀 진 상태에서 이벤트가 발생하면 하나씩 보여주는 형태의 레이아웃 
 //              (여기서 카드란 JPanel 이다.) 
-public class Ex01_CardLsyout extends JFrame {
+public class Ex01_CardLayout extends JFrame {
 	JPanel card1, card2, card3, card4, card5, pg1, pg2;
 	JButton jb1, jb2, jb3, jb4 ;
 	CardLayout cardLayout;
 	
-	public Ex01_CardLsyout() {
+	public Ex01_CardLayout() {
 		super("카드레이아웃");
 		
 		// 각각의 카드패널을 만들자 
@@ -71,7 +71,7 @@ public class Ex01_CardLsyout extends JFrame {
 		jb1 = new JButton("<<");
 		jb2 = new JButton("<");
 		jb3 = new JButton(">");
-		jb4 = new JButton(">>");
+		jb4 = new JButton(">>");	
 		pg2.add(jb1);
 		pg2.add(jb2);
 		pg2.add(jb3);
@@ -118,6 +118,6 @@ public class Ex01_CardLsyout extends JFrame {
 		
 	}
 	public static void main(String[] args) {
-		new Ex01_CardLsyout();
+		new Ex01_CardLayout();
 	}
 }
